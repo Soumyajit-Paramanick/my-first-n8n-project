@@ -14,11 +14,11 @@ This diagram shows how data moves through the workflow.
 
 ```mermaid
 flowchart TD
-    A([Manual Trigger]) --> B[Edit Fields<br/>Set name, topic, status]
-    B --> C[HTTP Request<br/>GET task data]
-    C --> D{IF: completed is true?}
-    D -- True --> E[Task Completed<br/>This task is already completed!]
-    D -- False --> F[Task Not Completed<br/>This task is not completed yet.]
+    A(["Manual Trigger"]) --> B["Edit Fields: Set name, topic, status"]
+    B --> C["HTTP Request: GET task data"]
+    C --> D{"Is completed true?"}
+    D -- "True" --> E["Task Completed"]
+    D -- "False" --> F["Task Not Completed"]
 ```
 
 ## 🧩 How It Works
