@@ -1,48 +1,76 @@
-# My First n8n Project 🚀
+# My First n8n Project 🚀 — Todo Status Checker
 
-This is my first hands-on project while learning n8n and workflow automation.
+My first hands-on project while learning **n8n and workflow automation**. This workflow calls a public REST API, checks whether a task is completed, and routes the result into a True or False branch.
 
-## About the Project
+## 📸 Workflow Screenshot
 
-This workflow fetches task information from a public REST API, checks whether the task is completed, and routes execution through the True or False branch.
+The workflow below was built and tested locally using n8n.
 
-## Workflow Architecture
+![My n8n workflow overview](screenshots/workflow-overview.png)
 
-Manual Trigger → Edit Fields → HTTP Request → IF Node
+## 🔀 Workflow Flow Diagram
 
-- **True:** The task is already completed.
-- **False:** The task is not completed yet.
+This diagram shows how data moves through the workflow.
 
-## Workflow Screenshot
+```mermaid
+flowchart TD
+    A([Manual Trigger]) --> B[Edit Fields<br/>Set name, topic, status]
+    B --> C[HTTP Request<br/>GET task data]
+    C --> D{IF: completed is true?}
+    D -- True --> E[Task Completed<br/>This task is already completed!]
+    D -- False --> F[Task Not Completed<br/>This task is not completed yet.]
+```
 
-![My First n8n Workflow](screenshots/workflow-overview.png)
+## 🧩 How It Works
 
-## Technologies Used
+1. **Manual Trigger** — starts the workflow when I click **Execute workflow**.
+2. **Edit Fields** — sets sample fields such as `name`, `topic`, and `status`.
+3. **HTTP Request** — sends a GET request to the JSONPlaceholder API.
+4. **IF Node** — checks whether the API response's `completed` field is the Boolean value `true`.
+5. **True branch** — returns a message that the task is already completed.
+6. **False branch** — returns a message that the task is not completed yet.
 
-- n8n
-- Docker Desktop
-- REST API
+## 🌐 API Used
+
+**Endpoint:** https://jsonplaceholder.typicode.com/todos/4
+
+This is a public sample API from JSONPlaceholder. The returned task has a `completed` field that the IF node evaluates.
+
+## 🛠️ Technologies Used
+
+- [n8n](https://n8n.io/) — workflow automation
+- Docker Desktop — running n8n locally
+- REST API and HTTP GET
 - JSON
 - Git and GitHub
 
-## API Used
+## ▶️ How to Import and Run
 
-https://jsonplaceholder.typicode.com/todos/4
+1. Start your local n8n instance.
+2. Open the n8n editor.
+3. Use the workflow menu to import `todo-status-checker.json` from your computer.
+4. Open the imported workflow.
+5. Click **Execute workflow**.
+6. Inspect the HTTP Request response and the IF node's True/False output.
 
-## What I Learned
+> **Note:** This workflow uses a public demo API and does not require API credentials.
 
-- Building workflows using a Manual Trigger
-- Making HTTP GET requests
-- Working with JSON API responses
-- Configuring Boolean conditions
-- Handling True and False execution branches
+## 📚 What I Learned
 
-## Future Improvements
+- Building a workflow with a Manual Trigger
+- Configuring Edit Fields
+- Sending HTTP GET requests
+- Reading JSON API responses
+- Checking Boolean values in an IF node
+- Routing workflow execution through True and False branches
+- Exporting and version-controlling an n8n workflow with Git and GitHub
 
-- Add scheduled execution.
-- Integrate notifications.
-- Build more practical automation workflows.
+## 🚀 Future Improvements
+
+- Add a Schedule Trigger to run automatically.
+- Send a notification based on the task status.
+- Explore more public APIs and build additional workflows.
 
 ---
 
-*This is the first step in my n8n learning journey. More projects coming soon!*
+**Learning journey:** This is my first n8n project. I plan to keep building and sharing more practical workflow automation projects as I learn.

@@ -1,0 +1,211 @@
+{
+  "name": "My First Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8f011145-9db3-4164-8c68-e47c2792847d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ffb1eeb6-cc2c-45a9-b0e6-c49c5dd0c1af",
+              "name": "name",
+              "value": "Soumyajit",
+              "type": "string"
+            },
+            {
+              "id": "678d485c-d7b9-4919-bdec-0be895547397",
+              "name": "topic",
+              "value": "Learning n8n",
+              "type": "string"
+            },
+            {
+              "id": "12120f0f-b06b-4756-b70e-4af3db224b3f",
+              "name": "status",
+              "value": "Started",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5f5f0ada-614d-4967-8520-c1b697c9130a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/todos/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "0a337646-9652-4b49-a32e-3eb2276cab2b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "449871a1-4262-44a0-bb90-90b162fc2ad2",
+              "leftValue": "={{ $json.completed }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "42f71026-5d40-40b2-9525-8c3e4ca8295c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e14ccf0e-8ac3-4bb8-90c1-9c1a916a2466",
+              "name": "message",
+              "value": "This task is not completed yet.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        896,
+        96
+      ],
+      "id": "bdb927c2-ac06-4598-95b6-1a47331e5f4f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "78ed3af2-afcd-4ba7-b67c-7f023f7c2c49",
+              "name": "message",
+              "value": "This task is already completed!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        896,
+        -96
+      ],
+      "id": "e4688a3d-9962-412d-8be3-766827434ac9",
+      "name": "Edit Fields2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "78e68ccc-0a18-4522-a605-cada807c34d6",
+  "meta": {
+    "instanceId": "5b0718d16c5e8a0c3dc1d798d330cc35b889b140d4ec3507288f61260f852ad0"
+  },
+  "nodeGroups": [],
+  "id": "L9MOD22RrX8BkI0G",
+  "tags": []
+}
